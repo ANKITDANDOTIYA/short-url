@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener Dashboard</title>
+    <style>
+        /* Basic Styling */
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        
+        h1, h2 { color: #2c3e50; text-align: center; }
+        
+        /* Form Styling */
+        .input-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+        input[type="text"] { width: 60%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; }
+        input[type="text"]:focus { border-color: #3498db; }
+        button { padding: 12px 25px; background-color: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #2980b9; }
+
+        /* Success Box */
+        .success-box { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 20px; border-radius: 8px; margin-bottom: 25px; text-align: center; }
+        .short-url { font-size: 1.2rem; font-weight: bold; color: #007bff; text-decoration: none; }
+
+        /* Table Styling */
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #34495e; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        
+        .scroll-list { max-height: 80px; overflow-y: auto; font-size: 0.85rem; color: #666; background: #fafafa; padding: 5px; border-radius: 4px; }
+        ul { margin: 0; padding-left: 15px; }
+        .no-data { text-align: center; color: #888; padding: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🔗 URL Shortener</h1>
+
+        <div class="input-section">
+            <form action="/url" method="POST">
+                <input type="text" name="url" placeholder="Paste your long URL here (e.g. https://google.com)" required>
+                <button type="submit">Shorten URL</button>
+            </form>
+        </div>
+
+        <% if ((locals.id !== null && id !== null)) { %>
+            <div class="success-box">
+                <p style="margin: 0 0 10px 0;">🎉 <strong>URL Generated Successfully!</strong></p>
+                <p>Your Short Link: 
+                    <a class="short-url" href="http://localhost:8001/<%= id %>" target="_blank">
+                        http://localhost:8001/<%= id %>
+                    </a>
+                </p>
+                <small>Short ID: <strong><%= id %></strong></small>
+            </div>
+        <% } %>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
+
+        <h2>Analytics & History</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Short ID</th>
+                        <th>Redirect URL</th>
+                        <th>Total Clicks</th>
+                        <th>Visit Timestamps (Latest First)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (locals.urls && urls.length > 0) { %>
+                        <% urls.forEach((url, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><code><%= url.shortId %></code></td>
+                                <td style="word-break: break-all; max-width: 300px;">
+                                    <a href="<%= url.redirectUrl %>" target="_blank" style="color: #3498db; text-decoration: none;">
+                                        <%= url.redirectUrl %>
+                                    </a>
+                                </td>
+                                <td style="text-align: center; font-weight: bold;">
+                                    <%= url.visitHistory.length %>
+                                </td>
+                                <td>
+                                    <div class="scroll-list">
+                                        <% if (url.visitHistory.length > 0) { %>
+                                            <ul>
+                                                <% url.visitHistory.slice().reverse().forEach(visit => { %>
+                                                    <li><%= new Date(visit.timeStamp).toLocaleString('en-IN') %></li>
+                                                <% }) %>
+                                            </ul>
+                                        <% } else { %>
+                                            <span>No clicks recorded yet.</span>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5" class="no-data">No URLs found. Start by shortening one above!</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
