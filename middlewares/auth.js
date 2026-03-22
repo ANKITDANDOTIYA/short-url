@@ -1,30 +1,25 @@
 const {getUser} = require("../service/auth");
 
+function checkAuth(req,res,next){
+    const sessionId = req.cookies?.sessionId;
+    req.user = null;
+    if(!sessionId) return next();
 
-async function restrictToLoggedinUserOnly(req,res,next){
-    const sessionId = req.cookies.sessionId;
-    if(!sessionId){
-        return res.status(401).render("login", {error : "Please login to access this page"});
-    }
+    const token = sessionId;
+    const user = getUser(token);
 
-    const userId = getUser(sessionId);
-    if(!userId){
-        return res.status(401).render("login", {error : "Invalid session. Please login again"});
-    }
-
-    req.userId = userId ? userId.id : null;
+    req.user = user ? user : null;
     next();
+
 }
 
-async function checkAuth(req,res,next){
-      const sessionId = req.cookies.sessionId;
-    
+function restrictTo(roles){
+    return function(req,res,next){
+        if(!req.user) return res.redirect("/login");
+        if(!roles.includes(req.user.role)) return res.status(403).json({error: "Forbidden"});
 
-    const userId = getUser(sessionId);
-    
-
-    req.userId = userId ? userId.id : null;
-    next();
+        next();
+    };
 }
-
-module.exports = {restrictToLoggedinUserOnly,checkAuth};
+ 
+module.exports = {restrictTo,checkAuth};

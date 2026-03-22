@@ -3,7 +3,7 @@ const {connectToDB} = require("./connect");
 const URL = require("./models/url");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const {restrictToLoggedinUserOnly,checkAuth} = require("./middlewares/auth");
+const {restrictTo,checkAuth} = require("./middlewares/auth");
 
 
 const staticRouter = require("./routes/staticRouter");
@@ -24,11 +24,12 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(checkAuth);
 
 
 
-app.use("/", checkAuth,staticRouter);
-app.use("/url",restrictToLoggedinUserOnly,urlRouter);
+app.use("/", staticRouter);
+app.use("/url",restrictTo(["NORMAL"]),urlRouter);
 app.use("/user",checkAuth,userRouter);
 
 app.get("/url/:shortId", async (req, res) => {
