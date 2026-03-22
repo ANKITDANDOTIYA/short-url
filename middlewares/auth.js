@@ -12,7 +12,7 @@ async function restrictToLoggedinUserOnly(req,res,next){
         return res.status(401).render("login", {error : "Invalid session. Please login again"});
     }
 
-    req.userId = userId;
+    req.userId = userId ? userId.id : null;
     next();
 }
 
@@ -23,7 +23,7 @@ async function checkAuth(req,res,next){
     const userId = getUser(sessionId);
     
 
-    req.userId = userId;
+    req.userId = userId ? userId.id : null;
     next();
 }
 
