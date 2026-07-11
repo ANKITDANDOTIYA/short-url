@@ -13,6 +13,7 @@ const userRouter = require("./routes/user");
 const app = express();
 const port = 8001;
 
+// mongoDb connection
 connectToDB("mongodb://localhost:27017/short-url").then(() => {
     console.log("Connected to DB");
 });
