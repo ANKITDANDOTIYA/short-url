@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(checkAuth);
 
 
-
+// Routes
 app.use("/", staticRouter);
 app.use("/url",restrictTo(["NORMAL"]),urlRouter);
 app.use("/user",checkAuth,userRouter);
