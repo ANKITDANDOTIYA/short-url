@@ -4,7 +4,7 @@ const URL = require("../models/url");
 const { restrictTo } = require("../middlewares/auth");
 
 
-
+// admin route to view all urls
 router.get("/admin/urls",restrictTo(["ADMIN"]),async(req,res) => {
 
         const allUrls = await URL.find({});
