@@ -3,6 +3,7 @@ const {v4 : uuidv4} = require("uuid");
 const {setUser} = require("../service/auth");
 const { set } = require("mongoose");
 
+// Authentication and user management functions
 async function handleUserSignup(req, res) {
     try {
         console.log('Signup body:', req.body);
