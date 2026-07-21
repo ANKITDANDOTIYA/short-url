@@ -10,6 +10,7 @@ const staticRouter = require("./routes/staticRouter");
 const urlRouter = require("./routes/url");
 const userRouter = require("./routes/user");
 
+// Express
 const app = express();
 const port = 8001;
 
