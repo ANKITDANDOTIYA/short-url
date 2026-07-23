@@ -11,6 +11,7 @@ router.get("/admin/urls",restrictTo(["ADMIN"]),async(req,res) => {
         return res.render("home", {id : null,urls : allUrls});
 })
 
+// general admin route
 router.get("/" , async (req,res) => {
      const allUrls = req.user ?  await URL.find({createdBy: req.user.id}) : [];
     return res.render("home", {id : null,urls : allUrls});
@@ -19,6 +20,8 @@ router.get("/" , async (req,res) => {
 router.get("/signup", (req,res) => {
     return res.render("signup");
 });
+
+
 
 router.get("/login", (req,res) => {
     return res.render("login");
