@@ -1,5 +1,6 @@
 const {getUser} = require("../service/auth");
 
+// Auth middleware to check if user is authenticated and has the required role
 function checkAuth(req,res,next){
     const sessionId = req.cookies?.sessionId;
     req.user = null;
@@ -13,6 +14,7 @@ function checkAuth(req,res,next){
 
 }
 
+// Restirct the access of user based on the role
 function restrictTo(roles){
     return function(req,res,next){
         if(!req.user) return res.redirect("/login");
