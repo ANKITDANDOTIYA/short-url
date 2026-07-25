@@ -1,6 +1,7 @@
 const {nanoid} = require("nanoid");
 const URL = require("../models/url");
 
+// generate short url and get the analytics about urls total Clicks visited history etc..
 async function handleGenerateNewShortUrl(req, res) {
     const body = req.body;
      
