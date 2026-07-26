@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-
+// schema of URL that was stored in the mongoDB 
 const urlSchema = new mongoose.Schema({
     shortId: {
         type: String,
