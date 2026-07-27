@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Details of user
+// User Schema...Structure of user that will be stored in the mongoDB
 const userSchema = new mongoose.Schema({
     name : { type: String, required: true },
     email : { type: String, required: true, unique: true },
