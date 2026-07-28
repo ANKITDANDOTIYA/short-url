@@ -3,7 +3,7 @@ const router = express.Router();
 const URL = require("../models/url");
 const { restrictTo } = require("../middlewares/auth");
 
-
+// These are the static routers that we used on directly on the browser like /login, /signup, /admin/urls etc.
 // admin route to view all urls
 router.get("/admin/urls",restrictTo(["ADMIN"]),async(req,res) => {
 
