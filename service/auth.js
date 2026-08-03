@@ -1,7 +1,7 @@
  const jwt = require('jsonwebtoken');
  const secret = "Ankit@987456";
 
-//  Manage the JWT Token
+//  Manage the JWT Token Auth
 function setUser(user){
     
      return jwt.sign({
