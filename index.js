@@ -1,3 +1,5 @@
+// Starting Point of Application
+
 const express = require('express');
 const {connectToDB} = require("./connect");
 const URL = require("./models/url");
