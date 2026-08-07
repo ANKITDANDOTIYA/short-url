@@ -1,4 +1,5 @@
 // Starting Point of Application
+// React Included in Applications
 
 const express = require('express');
 const {connectToDB} = require("./connect");
