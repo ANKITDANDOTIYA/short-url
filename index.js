@@ -1,5 +1,6 @@
 // Starting Point of Application
 // React Included in Applications
+// Enhance the UI
 
 const express = require('express');
 const {connectToDB} = require("./connect");
