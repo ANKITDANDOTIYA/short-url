@@ -1,5 +1,6 @@
 const {getUser} = require("../service/auth");
 
+// Session based authentication and authorization middleware
 // Auth middleware to check if user is authenticated and has the required role
 function checkAuth(req,res,next){
     const sessionId = req.cookies?.sessionId;
