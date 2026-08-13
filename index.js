@@ -1,6 +1,7 @@
 // Starting Point of Application
 // React Included in Applications
-// Enhance the UI
+// Enhance the UI 
+// Use EJS as a template engine to render dynamic content on the server side
 
 const express = require('express');
 const {connectToDB} = require("./connect");
