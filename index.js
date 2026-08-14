@@ -2,6 +2,7 @@
 // React Included in Applications
 // Enhance the UI 
 // Use EJS as a template engine to render dynamic content on the server side
+// Want to scalt it
 
 const express = require('express');
 const {connectToDB} = require("./connect");
