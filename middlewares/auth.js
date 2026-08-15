@@ -16,6 +16,7 @@ function checkAuth(req,res,next){
 }
 
 // Restirct the access of user based on the role
+// Used in index.js to restrict access to certain routes based on user roles
 function restrictTo(roles){
     return function(req,res,next){
         if(!req.user) return res.redirect("/login");
