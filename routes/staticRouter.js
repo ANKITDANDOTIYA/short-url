@@ -7,6 +7,7 @@ const { restrictTo } = require("../middlewares/auth");
 // admin route to view all urls
 router.get("/admin/urls",restrictTo(["ADMIN"]),async(req,res) => {
 
+        // .find({}) give the all urls in the database
         const allUrls = await URL.find({});
         return res.render("home", {id : null,urls : allUrls});
 })
