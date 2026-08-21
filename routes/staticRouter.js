@@ -14,6 +14,7 @@ router.get("/admin/urls",restrictTo(["ADMIN"]),async(req,res) => {
 
 // general admin route
 router.get("/" , async (req,res) => {
+    // if user is logged in then show the urls created by the user else show empty array
      const allUrls = req.user ?  await URL.find({createdBy: req.user.id}) : [];
     return res.render("home", {id : null,urls : allUrls});
 })
